@@ -4,12 +4,32 @@ const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 const cors = require("cors");
 
+const errorHandler = require("./middleWare/errorMiddleware")
+
+const userRoute = require("./routes/userRoute");
+
 
 const app = express()
+//middleware
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
+app.use(bodyParser.json())
+
+
+//Routes Middleware
+app.use("/api/user", userRoute)
+
+//Routes
+
+app.get('/', (req,res) => {
+    res.send('Home');
+})
 
 
 const PORT = process.env.PORT|| 5000;
 
+// Error middleware
+app.use(errorHandler);
 
 // conect to DB and Sgart server
 mongoose
