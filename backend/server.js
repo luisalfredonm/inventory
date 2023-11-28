@@ -8,6 +8,8 @@ const errorHandler = require("./middleWare/errorMiddleware")
 var cookieParser = require('cookie-parser')
 
 const userRoute = require("./routes/userRoute");
+const productRoute = require("./routes/productRoute");
+
 
 
 const app = express()
@@ -20,6 +22,7 @@ app.use(bodyParser.json())
 
 //Routes Middleware
 app.use("/api/user", userRoute)
+app.use("/api/products", productRoute)
 
 //Routes
 
