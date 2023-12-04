@@ -9,6 +9,8 @@ var cookieParser = require('cookie-parser')
 
 const userRoute = require("./routes/userRoute");
 const productRoute = require("./routes/productRoute");
+const contactRoute = require("./routes/contactRoute");
+
 
 const path = require("path");
 
@@ -25,8 +27,9 @@ app.use(cors())
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
 //Routes Middleware
-app.use("/api/user", userRoute)
-app.use("/api/products", productRoute)
+app.use("/api/user", userRoute);
+app.use("/api/products", productRoute);
+app.use("/api/contactus", contactRoute);
 
 //Routes
 

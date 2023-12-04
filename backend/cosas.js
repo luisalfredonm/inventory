@@ -21,3 +21,9 @@
 // FRONTEND_URL= http://localhost:3000
 
 // CLOUDINARY_URL=cloudinary://882558858859978:_B7vyATbF1NGA7RKBROx-mSwcao@di7llp51h
+
+
+
+
+
+// npm i react-redux @reduxjs/toolkit

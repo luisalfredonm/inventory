@@ -8,13 +8,13 @@ const {
   getProducts,
    getProduct,
    deleteProduct,
-//   updateProduct,
+   updateProduct,
 } = require("../controllers/productController");
 const { upload } = require("../utils/fileUpload");
 
 // router.post("/", protect, createProduct);
 router.post("/", protect, upload.single("image"), createProduct);
-// router.patch("/:id", protect, upload.single("image"), updateProduct);
+ router.patch("/:id", protect, upload.single("image"), updateProduct);
 router.get("/", protect, getProducts);
 router.get("/:id", protect, getProduct);
  router.delete("/:id", protect, deleteProduct);

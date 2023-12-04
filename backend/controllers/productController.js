@@ -92,32 +92,32 @@ const deleteProduct = asyncHandler(async (req, res) => {
   res.status(200).json({ message: "Product deleted." });
 });
 
-// // Update Product
-// const updateProduct = asyncHandler(async (req, res) => {
-//   const { name, category, quantity, price, description } = req.body;
-//   const { id } = req.params;
+// Update Product
+const updateProduct = asyncHandler(async (req, res) => {
+  const { name, category, quantity, price, description } = req.body;
+  const { id } = req.params;
 
-//   const product = await Product.findById(id);
+  const product = await Product.findById(id);
 
-//   // if product doesnt exist
-//   if (!product) {
-//     res.status(404);
-//     throw new Error("Product not found");
-//   }
-//   // Match product to its user
-//   if (product.user.toString() !== req.user.id) {
-//     res.status(401);
-//     throw new Error("User not authorized");
-//   }
+  // if product doesnt exist
+  if (!product) {
+    res.status(404);
+    throw new Error("Product not found");
+  }
+  // Match product to its user
+  if (product.user.toString() !== req.user.id) {
+    res.status(401);
+    throw new Error("User not authorized");
+  }
 
-//   // Handle Image upload
-//   let fileData = {};
-//   if (req.file) {
+  // Handle Image upload
+  let fileData = {};
+  if (req.file) {
 //     // Save image to cloudinary
 //     let uploadedFile;
 //     try {
 //       uploadedFile = await cloudinary.uploader.upload(req.file.path, {
-//         folder: "Pinvent App",
+//         folder: "Inventary",
 //         resource_type: "image",
 //       });
 //     } catch (error) {
@@ -131,32 +131,32 @@ const deleteProduct = asyncHandler(async (req, res) => {
 //       fileType: req.file.mimetype,
 //       fileSize: fileSizeFormatter(req.file.size, 2),
 //     };
-//   }
+  }
 
   // Update Product
-//   const updatedProduct = await Product.findByIdAndUpdate(
-//     { _id: id },
-//     {
-//       name,
-//       category,
-//       quantity,
-//       price,
-//       description,
-//       image: Object.keys(fileData).length === 0 ? product?.image : fileData,
-//     },
-//     {
-//       new: true,
-//       runValidators: true,
-//     }
-//   );
+  const updatedProduct = await Product.findByIdAndUpdate(
+    { _id: id },
+    {
+      name,
+      category,
+      quantity,
+      price,
+      description,
+      image: Object.keys(fileData).length === 0 ? product?.image : fileData,
+    },
+    {
+      new: true,
+      runValidators: true,
+    }
+  );
 
-//   res.status(200).json(updatedProduct);
-// });
+   res.status(200).json(updatedProduct);
+});
 
 module.exports = {
   createProduct,
   getProducts,
    getProduct,
    deleteProduct,
-//   updateProduct,
+   updateProduct,
 };
