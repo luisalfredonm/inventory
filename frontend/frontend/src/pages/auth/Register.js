@@ -29,7 +29,9 @@ const Register = () => {
   };
 
   const register = async (e) => {
-    // e.preventDefault();
+     e.preventDefault();
+
+     console.log(formData);
 
     // if (!name || !email || !password) {
     //   return toast.error("All fields are required");
