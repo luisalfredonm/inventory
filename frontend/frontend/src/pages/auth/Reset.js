@@ -3,8 +3,8 @@ import styles from "./auth.module.scss";
 import { MdPassword } from "react-icons/md";
 import Card from "../../components/card/Card";
 import { Link, useParams } from "react-router-dom";
-// import { toast } from "react-toastify";
-// import { resetPassword } from "../../services/authService";
+import { toast } from "react-toastify";
+import { resetPassword } from "../../services/authService";
 
 const initialState = {
   password: "",
@@ -23,26 +23,26 @@ const Reset = () => {
   };
 
   const reset = async (e) => {
-    // e.preventDefault();
+    e.preventDefault();
 
-    // if (password.length < 6) {
-    //   return toast.error("Passwords must be up to 6 characters");
-    // }
-    // if (password !== password2) {
-    //   return toast.error("Passwords do not match");
-    // }
+    if (password.length < 6) {
+      return toast.error("Passwords must be up to 6 characters");
+    }
+    if (password !== password2) {
+      return toast.error("Passwords do not match");
+    }
 
-    // const userData = {
-    //   password,
-    //   password2,
-    // };
+    const userData = {
+      password,
+      password2,
+    };
 
-    // try {
-    //   const data = await resetPassword(userData, resetToken);
-    //   toast.success(data.message);
-    // } catch (error) {
-    //   console.log(error.message);
-    // }
+    try {
+      const data = await resetPassword(userData, resetToken);
+      toast.success(data.message);
+    } catch (error) {
+      console.log(error.message);
+    }
   };
 
   return (
