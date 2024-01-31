@@ -5,7 +5,6 @@ const cloudinary = require("cloudinary").v2;
 
 // Create Prouct
 const createProduct = asyncHandler(async (req, res) => {
-    // res.send("Create producto")
   const { name, sku, category, quantity, price, description } = req.body;
 
   //   Validation
@@ -16,12 +15,12 @@ const createProduct = asyncHandler(async (req, res) => {
 
   // Handle Image upload
   let fileData = {};
-   if (req.file) {
+  if (req.file) {
     // Save image to cloudinary
     let uploadedFile;
     try {
       uploadedFile = await cloudinary.uploader.upload(req.file.path, {
-        folder: "Inventary",
+        folder: "Pinvent App",
         resource_type: "image",
       });
     } catch (error) {
@@ -32,7 +31,6 @@ const createProduct = asyncHandler(async (req, res) => {
     fileData = {
       fileName: req.file.originalname,
       filePath: uploadedFile.secure_url,
-      // filePath: req.file.path,
       fileType: req.file.mimetype,
       fileSize: fileSizeFormatter(req.file.size, 2),
     };
@@ -47,7 +45,7 @@ const createProduct = asyncHandler(async (req, res) => {
     quantity,
     price,
     description,
-      image: fileData,
+    image: fileData,
   });
 
   res.status(201).json(product);
@@ -88,7 +86,7 @@ const deleteProduct = asyncHandler(async (req, res) => {
     res.status(401);
     throw new Error("User not authorized");
   }
-  await product.remove();
+  await product.deleteOne();
   res.status(200).json({ message: "Product deleted." });
 });
 
@@ -113,24 +111,24 @@ const updateProduct = asyncHandler(async (req, res) => {
   // Handle Image upload
   let fileData = {};
   if (req.file) {
-//     // Save image to cloudinary
-//     let uploadedFile;
-//     try {
-//       uploadedFile = await cloudinary.uploader.upload(req.file.path, {
-//         folder: "Inventary",
-//         resource_type: "image",
-//       });
-//     } catch (error) {
-//       res.status(500);
-//       throw new Error("Image could not be uploaded");
-//     }
+    // Save image to cloudinary
+    let uploadedFile;
+    try {
+      uploadedFile = await cloudinary.uploader.upload(req.file.path, {
+        folder: "Pinvent App",
+        resource_type: "image",
+      });
+    } catch (error) {
+      res.status(500);
+      throw new Error("Image could not be uploaded");
+    }
 
-//     fileData = {
-//       fileName: req.file.originalname,
-//       filePath: uploadedFile.secure_url,
-//       fileType: req.file.mimetype,
-//       fileSize: fileSizeFormatter(req.file.size, 2),
-//     };
+    fileData = {
+      fileName: req.file.originalname,
+      filePath: uploadedFile.secure_url,
+      fileType: req.file.mimetype,
+      fileSize: fileSizeFormatter(req.file.size, 2),
+    };
   }
 
   // Update Product
@@ -150,13 +148,13 @@ const updateProduct = asyncHandler(async (req, res) => {
     }
   );
 
-   res.status(200).json(updatedProduct);
+  res.status(200).json(updatedProduct);
 });
 
 module.exports = {
   createProduct,
   getProducts,
-   getProduct,
-   deleteProduct,
-   updateProduct,
+  getProduct,
+  deleteProduct,
+  updateProduct,
 };
